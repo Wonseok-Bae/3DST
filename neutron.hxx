@@ -114,7 +114,17 @@ TH1F* hist_bkgTime_secondary = new TH1F("hist_bkgTime_secondary", "Time distribu
 TH1F* hist_bkgLvr_secondary  =  new TH1F("hist_bkgLvr_secondary", "Lever Arm; Track Length [cm]; Events", 20, 0, 200);
 TH1F* hist_bkgEdep_secondary = new TH1F("hist_bkgEdep_secondary", "Neutron energy deposit;Energy [MeV];Events", 35, 0, 35);
 
-TH2F* cut_2D = new TH2F("cut_2D", "cut_2D;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_0 = new TH2F("cut_2D_0", "cut_2D_0;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_1 = new TH2F("cut_2D_1", "cut_2D_1;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_2 = new TH2F("cut_2D_2", "cut_2D_2;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_3 = new TH2F("cut_2D_3", "cut_2D_3;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_4 = new TH2F("cut_2D_4", "cut_2D_4;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_5 = new TH2F("cut_2D_5", "cut_2D_5;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_6 = new TH2F("cut_2D_6", "cut_2D_6;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_7 = new TH2F("cut_2D_7", "cut_2D_7;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_8 = new TH2F("cut_2D_8", "cut_2D_8;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_9 = new TH2F("cut_2D_9", "cut_2D_9;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+TH2F* cut_2D_10 = new TH2F("cut_2D_10", "cut_2D_10;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
 TH2F* nocut_2D = new TH2F("nocut_2D", "nocut_2D;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
 
 TH1F * cut_arm0 = new TH1F("cut_arm0","cut_arm0",20,0,200);
@@ -132,7 +142,8 @@ TH1F * cut_arm10 = new TH1F("cut_arm10","cut_arm10",20,0,200);
 TH1F * cut_time = new TH1F("cut_time","cut_time",25,0,25);
 TH1F * nocut_arm = new TH1F("nocut_arm","nocut_arm",20,0,200);
 TH1F * nocut_time = new TH1F("nocut_time","nocut_time",25,0,25);
-TH1F * threshold_vs_efficiency = new TH1F("test","test",11,0,1.1);
+TH1F * threshold_vs_efficiency = new TH1F("test","test",11,0,0.011);
+TH1D * energydeposit = new TH1D("e","e",1000000,0,100);
 // }}}
 
 // count
@@ -457,53 +468,65 @@ void analyze(string file)
 
                         // Raise signal flag
                         is_Sig = true;
+                        energydeposit->Fill(hitPerCube.at(key).energyDeposit*0.000001);
                         nocut_2D->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
                         nocut_time->Fill(hitPerCube.at(key).timeWindow);
                         nocut_arm->Fill(hitPerCube.at(key).trackLength);
-                            if(hitPerCube.at(key).energyDeposit > 0)
-                            {
-                                cut_arm0->Fill(hitPerCube.at(key).trackLength);
-                            }
-                            if(hitPerCube.at(key).energyDeposit > 0.1)
-                            {
-                                cut_arm1->Fill(hitPerCube.at(key).trackLength);
-                            }
-                            if(hitPerCube.at(key).energyDeposit > 0.2)
-                            {
-                                cut_arm2->Fill(hitPerCube.at(key).trackLength);
-                            }
-                            if(hitPerCube.at(key).energyDeposit > 0.3)
-                            {
-                                cut_arm3->Fill(hitPerCube.at(key).trackLength);
-                            }
-                            if(hitPerCube.at(key).energyDeposit > 0.4)
-                            {
-                                cut_arm4->Fill(hitPerCube.at(key).trackLength);
-                            }
-                            if(hitPerCube.at(key).energyDeposit > 0.5)
-                            {
-                                cut_arm5->Fill(hitPerCube.at(key).trackLength);
-                            }
-                            if(hitPerCube.at(key).energyDeposit > 0.6)
-                            {
-                                cut_arm6->Fill(hitPerCube.at(key).trackLength);
-                            }
-                            if(hitPerCube.at(key).energyDeposit > 0.7)
-                            {
-                                cut_arm7->Fill(hitPerCube.at(key).trackLength);
-                            }
-                            if(hitPerCube.at(key).energyDeposit > 0.8)
-                            {
-                                cut_arm8->Fill(hitPerCube.at(key).trackLength);
-                            }
-                            if(hitPerCube.at(key).energyDeposit > 0.9)
-                            {
-                                cut_arm9->Fill(hitPerCube.at(key).trackLength);
-                            }
-                            if(hitPerCube.at(key).energyDeposit > 1)
-                            {
-                                cut_arm10->Fill(hitPerCube.at(key).trackLength);
-                            }
+                        if(hitPerCube.at(key).energyDeposit > 0)
+                        {
+                            cut_arm0->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_0->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
+                        if(hitPerCube.at(key).energyDeposit > 0.1)
+                        {
+                            cut_arm1->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_1->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
+                        if(hitPerCube.at(key).energyDeposit > 0.2)
+                        {
+                            cut_arm2->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_2->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
+                        if(hitPerCube.at(key).energyDeposit > 0.3)
+                        {
+                            cut_arm3->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_3->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
+                        if(hitPerCube.at(key).energyDeposit > 0.4)
+                        {
+                            cut_arm4->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_4->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
+                        if(hitPerCube.at(key).energyDeposit > 0.5)
+                        {
+                            cut_arm5->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_5->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
+                        if(hitPerCube.at(key).energyDeposit > 0.6)
+                        {
+                            cut_arm6->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_6->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
+                        if(hitPerCube.at(key).energyDeposit > 0.7)
+                        {
+                            cut_arm7->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_7->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
+                        if(hitPerCube.at(key).energyDeposit > 0.8)
+                        {
+                            cut_arm8->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_8->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
+                        if(hitPerCube.at(key).energyDeposit > 0.9)
+                        {
+                            cut_arm9->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_9->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
+                        if(hitPerCube.at(key).energyDeposit > 1)
+                        {
+                            cut_arm10->Fill(hitPerCube.at(key).trackLength);
+                            cut_2D_10->Fill(hitPerCube.at(key).trackLength,hitPerCube.at(key).timeWindow);
+                        }
                     }
                 }
             }
@@ -829,33 +852,144 @@ void neutron(string filename)
     }
     TH1D * entry = new TH1D("asdf","asdf",10,0,1);
 
-        threshold_vs_efficiency->SetBinContent(1,cut_arm0->GetEntries()/nocut_arm->GetEntries());
-        threshold_vs_efficiency->SetBinContent(2,cut_arm1->GetEntries()/nocut_arm->GetEntries());
-        threshold_vs_efficiency->SetBinContent(3,cut_arm2->GetEntries()/nocut_arm->GetEntries());
-        threshold_vs_efficiency->SetBinContent(4,cut_arm3->GetEntries()/nocut_arm->GetEntries());
-        threshold_vs_efficiency->SetBinContent(5,cut_arm4->GetEntries()/nocut_arm->GetEntries());
-        threshold_vs_efficiency->SetBinContent(6,cut_arm5->GetEntries()/nocut_arm->GetEntries());
-        threshold_vs_efficiency->SetBinContent(7,cut_arm6->GetEntries()/nocut_arm->GetEntries());
-        threshold_vs_efficiency->SetBinContent(8,cut_arm7->GetEntries()/nocut_arm->GetEntries());
-        threshold_vs_efficiency->SetBinContent(9,cut_arm8->GetEntries()/nocut_arm->GetEntries());
-        threshold_vs_efficiency->SetBinContent(10,cut_arm9->GetEntries()/nocut_arm->GetEntries());
-        threshold_vs_efficiency->SetBinContent(11,cut_arm10->GetEntries()/nocut_arm->GetEntries());
-        entry->SetBinContent(1,cut_arm0->GetEntries());
-        entry->SetBinContent(2,cut_arm1->GetEntries());
-        entry->SetBinContent(3,cut_arm2->GetEntries());
-        entry->SetBinContent(4,cut_arm3->GetEntries());
-        entry->SetBinContent(5,cut_arm4->GetEntries());
-        entry->SetBinContent(6,cut_arm5->GetEntries());
-        entry->SetBinContent(7,cut_arm6->GetEntries());
-        entry->SetBinContent(8,cut_arm7->GetEntries());
-        entry->SetBinContent(9,cut_arm8->GetEntries());
-        entry->SetBinContent(10,cut_arm9->GetEntries());
-        entry->SetBinContent(11,cut_arm10->GetEntries());
+    threshold_vs_efficiency->SetBinContent(1,cut_arm0->GetEntries()/nocut_arm->GetEntries());
+    threshold_vs_efficiency->SetBinContent(2,cut_arm1->GetEntries()/nocut_arm->GetEntries());
+    threshold_vs_efficiency->SetBinContent(3,cut_arm2->GetEntries()/nocut_arm->GetEntries());
+    threshold_vs_efficiency->SetBinContent(4,cut_arm3->GetEntries()/nocut_arm->GetEntries());
+    threshold_vs_efficiency->SetBinContent(5,cut_arm4->GetEntries()/nocut_arm->GetEntries());
+    threshold_vs_efficiency->SetBinContent(6,cut_arm5->GetEntries()/nocut_arm->GetEntries());
+    threshold_vs_efficiency->SetBinContent(7,cut_arm6->GetEntries()/nocut_arm->GetEntries());
+    threshold_vs_efficiency->SetBinContent(8,cut_arm7->GetEntries()/nocut_arm->GetEntries());
+    threshold_vs_efficiency->SetBinContent(9,cut_arm8->GetEntries()/nocut_arm->GetEntries());
+    threshold_vs_efficiency->SetBinContent(10,cut_arm9->GetEntries()/nocut_arm->GetEntries());
+    threshold_vs_efficiency->SetBinContent(11,cut_arm10->GetEntries()/nocut_arm->GetEntries());
+    entry->SetBinContent(1,cut_arm0->GetEntries());
+    entry->SetBinContent(2,cut_arm1->GetEntries());
+    entry->SetBinContent(3,cut_arm2->GetEntries());
+    entry->SetBinContent(4,cut_arm3->GetEntries());
+    entry->SetBinContent(5,cut_arm4->GetEntries());
+    entry->SetBinContent(6,cut_arm5->GetEntries());
+    entry->SetBinContent(7,cut_arm6->GetEntries());
+    entry->SetBinContent(8,cut_arm7->GetEntries());
+    entry->SetBinContent(9,cut_arm8->GetEntries());
+    entry->SetBinContent(10,cut_arm9->GetEntries());
+    entry->SetBinContent(11,cut_arm10->GetEntries());
+
+    TH2F* efficiency_2D_0 = new TH2F("efficiency_2D_0", "efficiency_2D_0;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_0->SetBinContent(i,cut_2D_0->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_0->SetBinContent(i,0);
+    }
+
+    TH2F* efficiency_2D_1 = new TH2F("efficiency_2D_1", "efficiency_2D_1;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_1->SetBinContent(i,cut_2D_1->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_1->SetBinContent(i,0);
+    }
+
+    TH2F* efficiency_2D_2 = new TH2F("efficiency_2D_2", "efficiency_2D_2;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_2->SetBinContent(i,cut_2D_2->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_2->SetBinContent(i,0);
+    }
+
+    TH2F* efficiency_2D_3 = new TH2F("efficiency_2D_3", "efficiency_2D_3;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_3->SetBinContent(i,cut_2D_3->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_3->SetBinContent(i,0);
+    }
+
+    TH2F* efficiency_2D_4 = new TH2F("efficiency_2D_4", "efficiency_2D_4;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_4->SetBinContent(i,cut_2D_4->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_4->SetBinContent(i,0);
+    }
+
+    TH2F* efficiency_2D_5 = new TH2F("efficiency_2D_5", "efficiency_2D_5;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_5->SetBinContent(i,cut_2D_5->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_5->SetBinContent(i,0);
+    }
+
+    TH2F* efficiency_2D_6 = new TH2F("efficiency_2D_6", "efficiency_2D_6;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_6->SetBinContent(i,cut_2D_6->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_6->SetBinContent(i,0);
+    }
+
+    TH2F* efficiency_2D_7 = new TH2F("efficiency_2D_7", "efficiency_2D_7;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_7->SetBinContent(i,cut_2D_7->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_7->SetBinContent(i,0);
+    }
+
+    TH2F* efficiency_2D_8 = new TH2F("efficiency_2D_8", "efficiency_2D_8;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_8->SetBinContent(i,cut_2D_8->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_8->SetBinContent(i,0);
+    }
+
+    TH2F* efficiency_2D_9 = new TH2F("efficiency_2D_9", "efficiency_2D_9;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_9->SetBinContent(i,cut_2D_9->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_9->SetBinContent(i,0);
+    }
+
+    TH2F* efficiency_2D_10 = new TH2F("efficiency_2D_10", "efficiency_2D_10;Lever Arm [cm]; Time [ns]", 20, 0, 200, 25, 0, 25);
+    for(int i = 1; i <1000; i++)
+    {
+        if(nocut_2D->GetBinContent(i) != 0)
+            efficiency_2D_10->SetBinContent(i,cut_2D_10->GetBinContent(i)/nocut_2D->GetBinContent(i));
+        else
+            efficiency_2D_10->SetBinContent(i,0);
+    }
 
     threshold_vs_efficiency->GetYaxis()->SetRangeUser(0,1);
     threshold_vs_efficiency->GetYaxis()->SetTitle("efficiency");
     threshold_vs_efficiency->GetXaxis()->SetTitle("threshold");
     TFile * thre = new TFile("threshold_vs_eff.root","RECREATE");
+    efficiency_2D_0->Write();
+    efficiency_2D_1->Write();
+    efficiency_2D_2->Write();
+    efficiency_2D_3->Write();
+    efficiency_2D_4->Write();
+    efficiency_2D_5->Write();
+    efficiency_2D_6->Write();
+    efficiency_2D_7->Write();
+    efficiency_2D_8->Write();
+    efficiency_2D_9->Write();
+    efficiency_2D_10->Write();
+    energydeposit->Write();
     entry->Write();
     nocut_arm->Write();
     threshold_vs_efficiency->Write();
@@ -1137,7 +1271,7 @@ void neutron(string filename)
             float purity = (float)nbSig/(nbSig + nbBkg);
 
             // Fill histogram
-            hist_purity_ArmTime->SetBinContent(iLvr + 1, iTime + 1, nbSig);
+            hist_purity_ArmTime->SetBinContent(iLvr + 1, iTime + 1, purity);
         }
     }
 
@@ -1291,7 +1425,6 @@ void neutron(string filename)
     fffii->Close();
 
     auto fi = new TFile("hist_2D_purity.root", "RECREATE");
-    cut_2D->Write();
     cut_time->Write();
     nocut_2D->Write();
     nocut_arm->Write();
